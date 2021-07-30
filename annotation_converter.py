@@ -38,6 +38,7 @@ if __name__ == "__main__":
     
     #DIR = "Downloads/test"
     #PATH = os.path.join(PATH, DIR)
+    #PATH = os.path.join(PATH, "data")
     
     # Wanted Classes : Dictionary Format
     if args.want_class is None:
@@ -99,8 +100,10 @@ if __name__ == "__main__":
             lines = f.readlines()
             for line in lines:
                 # Old Class Counting
-                old_idx = int(line.split()[0])
-                old_class_count[old_idx] += 1
+                old_idx: int = -1
+                if line.split()[0] != "None":
+                    old_idx = int(line.split()[0])
+                    old_class_count[old_idx] += 1
                 
                 if old_idx in source_class.keys():
                     # Class Number Mapping / Source -> Target
@@ -120,12 +123,12 @@ if __name__ == "__main__":
             for text in temp_text:
                 f.write(text)
         
-        print("Processing...", text_file)
+        print("Processing...", text_file, end='\r')
     
     end_time: float = time.time()
     
     # Simple Analysis
-    print("Done...\nLast Text File :",text_file)
+    print("\nDone...\nLast Text File :",text_file)
     print("Processing Time :", round(end_time - start_time, 2), "sec")
     
     print("\nTotal Labeling Box :", total_box, "Box")
